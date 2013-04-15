@@ -13,8 +13,7 @@ namespace AstroJack
         public static bool JumpLeft { get; private set; }
         public static bool WalkRight { get; private set; }
         public static bool JumpRight { get; private set; }
-        public static bool Jump { get; private set; }
-        public static bool Glide { get; private set; }
+        public static bool Jump { get; private set; } 
         public static bool Idle { get; private set; }
         public static bool Shoot { get; private set; }
          
@@ -24,30 +23,29 @@ namespace AstroJack
             JumpLeft =
             WalkRight =
             JumpRight =
-            Jump =
-            Glide =
+            Jump = 
             Idle =
             Shoot = false;
             var keys = Keyboard.GetState().GetPressedKeys().ToList();
-
+            var padState =  GamePad.GetState(index);
             Idle = keys.Count == 0;
 
-            Jump = keys.Any(k => k == Keys.Up || k == Keys.Space);
-            Glide = keys.Any(k => k == Keys.Down);
+            Shoot = keys.Any(k => k == Keys.F) || padState.Buttons.A == ButtonState.Pressed;
+            Jump = keys.Any(k => k == Keys.Up || k == Keys.Space) || padState.Buttons.B == ButtonState.Pressed;
 
-            if (keys.Any(k => k == Keys.Left))
+            if (keys.Any(k => k == Keys.Left) || padState.Buttons.LeftShoulder == ButtonState.Pressed)
             {
                 if (Jump)
                     JumpLeft = true;
                 WalkLeft = true; 
             }
 
-            if (keys.Any(k => k == Keys.Right))
+            if (keys.Any(k => k == Keys.Right) || padState.Buttons.RightShoulder == ButtonState.Pressed)
             {
                 if (Jump)
                     JumpRight = true;
                 WalkRight = true;
-            } 
+            }
         }
     }
 }

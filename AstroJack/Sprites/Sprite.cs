@@ -15,7 +15,6 @@ namespace AstroJack.Sprites
         Jump,
         JumpForward,
         JumpBackwards,
-        Glide,
         Idle
     }
 
@@ -96,10 +95,6 @@ namespace AstroJack.Sprites
             else if (CurrentState == State.Jump)
             {
                 Position.Y -= 3;
-            }
-            else if (CurrentState == State.Glide)
-            {
-                Position.Y += 3;
             }
 
             if (Jumping)

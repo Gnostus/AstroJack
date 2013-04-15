@@ -51,9 +51,12 @@ namespace AstroJack
                 Exit();
             if (Keyboard.GetState().GetPressedKeys().Any(k => k == Keys.Escape))
                 Exit();
+
             _stages[_currentStage].Poll();
+
             if (_stages[_currentStage].Complete)
                 _currentStage++;
+
             base.Update(gameTime);
         }
          

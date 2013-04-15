@@ -75,7 +75,6 @@ namespace AstroJack.Sprites
                 CurrentState = State.JumpForward;
                 FacingLeft = false;
             }
-            if (IO.Glide) CurrentState = State.Glide; 
         }     
     }
 }
