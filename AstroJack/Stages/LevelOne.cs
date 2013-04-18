@@ -8,29 +8,26 @@ using System.Text;
 namespace AstroJack.Stages
 {
     public class LevelOne : BaseStage
-    {
-        public override void Load(ContentManager content)
+    {         
+        protected override void AddSprites()
         {
-            var character = new Astronaut();
             var background = new BackGround("JnRLayer01");
-            this.Add(background);
-            Add(character);
+            Add(background);
             var trre = new Sprite("Tree Tall");
             trre.SetSize(101, 171);
             trre.SetPosition(250, 250);
             Add(trre);
-            AddRange(CreateBricks());
-            ForEach(d => d.Load(content));
+            AddRange(CreateBricks(BrickType.Grass, 20));
         }
 
-        private IEnumerable<IDrawable> CreateBricks()
+        public override void Poll()
         {
-            return Enumerable.Range(0, 50).Select(i =>
-            {
-                var brick = Brick.Create(BrickType.Grass);
-                brick.SetPosition(i * brick.Width, WorldData.SeaLevel);
-                return brick;
-            });   
+            Counter++;
+
+            if (Counter == 25)
+                _player.Talk("Sup ya'll?\nTime for\nsome fun.");
+            base.Poll();
         }
+
     }
 }

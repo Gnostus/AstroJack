@@ -16,6 +16,7 @@ namespace AstroJack
         public static bool Jump { get; private set; } 
         public static bool Idle { get; private set; }
         public static bool Shoot { get; private set; }
+        public static bool Talk { get; private set; }  
          
         public static void Poll(PlayerIndex index = PlayerIndex.One)
         {
@@ -29,7 +30,7 @@ namespace AstroJack
             var keys = Keyboard.GetState().GetPressedKeys().ToList();
             var padState =  GamePad.GetState(index);
             Idle = keys.Count == 0;
-
+            Talk = keys.Any(k => k == Keys.P) || padState.Buttons.LeftShoulder == ButtonState.Pressed;
             Shoot = keys.Any(k => k == Keys.F) || padState.Buttons.A == ButtonState.Pressed;
             Jump = keys.Any(k => k == Keys.Up || k == Keys.Space) || padState.Buttons.B == ButtonState.Pressed;
 

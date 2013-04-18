@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="IO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -114,8 +115,13 @@
     <Compile Include="Sprites\Astronaut.cs" />
     <Compile Include="Sprites\BackGround.cs" />
     <Compile Include="Sprites\Brick.cs" />
+    <Compile Include="Sprites\Weapons\Bullet.cs" />
     <Compile Include="Sprites\IDrawable.cs" />
     <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Sprites\TalkBox.cs" />
+    <Compile Include="Sprites\Text.cs" />
+    <Compile Include="Sprites\Weapons\IWeapon.cs" />
+    <Compile Include="Sprites\Weapons\Rifle.cs" />
     <Compile Include="Stages\BaseStage.cs" />
     <Compile Include="Stages\LevelOne.cs" />
     <Compile Include="WorldData.cs" />

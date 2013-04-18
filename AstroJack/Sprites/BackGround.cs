@@ -8,28 +8,23 @@ using System.Text;
 
 namespace AstroJack.Sprites
 {
-    public class BackGround : IDrawable
+    public class BackGround : Drawable
     {
         Texture2D _texture;
-        string _resource;
+        string _resource;        
         public BackGround(string resource)
         {
             _resource = resource;
         }
-
-        public void Poll()
-        {
-
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
+         
+        public override void Draw(SpriteBatch spriteBatch)
         {
             var y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             var x = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             spriteBatch.Draw(_texture, new Microsoft.Xna.Framework.Rectangle(0,0, x, y), Color.White);
         }
 
-        public void Load(ContentManager content)
+        public override void Load(ContentManager content)
         {
  	       _texture = content.Load<Texture2D>(_resource); 
         }

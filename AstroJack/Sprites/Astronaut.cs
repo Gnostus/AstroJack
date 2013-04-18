@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using AstroJack.Sprites.Weapons;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,27 +9,24 @@ using System.Text;
 namespace AstroJack.Sprites
 {
     public class Astronaut : Sprite
-    { 
+    {
+        private TalkBox _talkBox;
+        private IWeapon _weapon;
         public Astronaut() : base("astronaut3_0")
         { 
             IsAnimating = true;
-            FrameSize = new Point(30, 37); 
+            FrameSize = new Point(30, 37);
+            _talkBox = new TalkBox(this);
+            _weapon = new Rifle(this);
+            SubSprites.Add(_weapon);
+            SubSprites.Add(_talkBox);
+            _weapon.Load(5);
         }
-
-        private int MomentsSpeaking = 0;
-        private int MomentsToSpeak = 0;
-        private string Message = string.Empty;
-
+                
         public void Talk(string message)
         {
-            Message = message;
-            MomentsToSpeak = Message.Length * 5;
-        }
-
-        protected override void SubDraw(SpriteEffects effect) 
-        { 
-
-        }
+            _talkBox.Talk(message);
+        } 
 
         protected override void ChangeFrame()
         {
@@ -49,15 +47,19 @@ namespace AstroJack.Sprites
         {
             IO.Poll();
 
+            if (IO.Talk)
+                Talk("Wuchu Want?");
+            if (IO.Shoot)
+                _weapon.Shoot(Position);
             if (IO.WalkRight)
             {
                 CurrentState = State.Walking;
-                FacingLeft = false;
+                FaceLeft(false);
             }
             if (IO.WalkLeft)
             {
                 CurrentState = State.Walking;
-                FacingLeft = true;
+                FaceLeft(true);
             }
             if (IO.Idle)
             {
@@ -68,13 +70,20 @@ namespace AstroJack.Sprites
             if (IO.JumpLeft)
             {
                 CurrentState = State.JumpBackwards;
-                FacingLeft = true;
+                FaceLeft(true);
             }
             if (IO.JumpRight)
             {
                 CurrentState = State.JumpForward;
-                FacingLeft = false;
+                FaceLeft(false);
             }
-        }     
+            base.Poll();
+        }
+
+        private void FaceLeft(bool left)
+        {
+            FacingLeft = left;
+            SubSprites.OfType<Sprite>().ForEach(s => s.FacingLeft = left);
+        }
     }
 }

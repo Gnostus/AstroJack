@@ -18,17 +18,16 @@ namespace AstroJack.Sprites
         Idle
     }
 
-    public class Sprite : IDrawable
-    {
+    public class Sprite : Drawable
+    { 
         public int Width { get { return FrameSize.X; } }
         public int Height { get { return FrameSize.Y; } }
-        protected bool FacingLeft = false;
+        public bool FacingLeft = false;
         protected Point FrameSize = new Point(128, 122);
         protected int Speed = 5;
         //Which frame we are currently on
         protected Point CurrentFrame = new Point(0, 0);        
         protected State CurrentState = State.Idle;
-        protected bool IsAnimating { get; set; }
         protected int CurrentFrameIndex { get; set; }
         protected Vector2 Position = new Vector2(200, WorldData.GamePlane);
 
@@ -37,7 +36,7 @@ namespace AstroJack.Sprites
         public Sprite(string resource)
         {
             _resource = resource;
-            IsAnimating = true;
+            IsAnimating = true; 
         }
 
         public void SetSize(int x, int y)
@@ -52,30 +51,44 @@ namespace AstroJack.Sprites
             Position.Y = y;
         }
 
-        public void Load(ContentManager Content)
+        public override void Load(ContentManager Content)
         { 
-            sprite = Content.Load<Texture2D>(_resource); 
+            sprite = Content.Load<Texture2D>(_resource);
+            base.Load(Content);
         }
+
+        public float PosX { get { return Position.X; } }
+        public float PosY { get { return Position.Y; } }
+        public float FullX { get { return Position.X + FrameSize.X; } }
+        public float FullY { get { return Position.Y + FrameSize.Y; } }
+
 
         private int LeapCount = 0;
         protected int LeapLength = 5; 
         private bool Jumping { get { return CurrentState == State.JumpBackwards || CurrentState == State.JumpForward || CurrentState == State.Jump; } }
+         
+        protected virtual void ChangeFrame() { } 
 
-        public virtual void Poll() { }
-        protected virtual void ChangeFrame() { }
-        protected virtual void SubDraw(SpriteEffects effect) { }
-        public void Draw(SpriteBatch spriteBatch)
+        public bool Collided(Sprite sprite)
+        { 
+            return (FullX >= sprite.PosX)
+                      && (FullY >= sprite.PosY)
+                      && (sprite.FullX >= PosX)
+                      && (sprite.FullY >= PosY);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsAnimating)
             {
                 var effect = FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
                 spriteBatch.Draw(sprite, Position, new Rectangle(
                               FrameSize.X * CurrentFrame.X,
                               FrameSize.Y * CurrentFrame.Y,
                               FrameSize.X,
                               FrameSize.Y),
                               Color.White, 0, Vector2.Zero, 1, effect, 0);
-                SubDraw(effect);
             }
 
             if (CurrentState == State.Walking)
@@ -105,8 +118,8 @@ namespace AstroJack.Sprites
                 LeapLength = 0;
                 Position.Y += 3;
             }
-
             ChangeFrame();
+            base.Draw(spriteBatch);
         }
 
         private Texture2D sprite;

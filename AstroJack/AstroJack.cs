@@ -24,7 +24,7 @@ namespace AstroJack
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content"; 
-            this.graphics.IsFullScreen = true;
+           // this.graphics.IsFullScreen = true;
         }
          
         protected override void Initialize()
@@ -64,8 +64,7 @@ namespace AstroJack
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            _stages[_currentStage].Draw(spriteBatch);
-            // TODO: Add your drawing code here
+            _stages[_currentStage].Draw(spriteBatch); 
             spriteBatch.End();
             base.Draw(gameTime);
         }
