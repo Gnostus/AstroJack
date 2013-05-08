@@ -20,7 +20,7 @@ namespace AstroJack.Sprites
             IsAnimating = false;
             FrameSize = new Point(12, 13);
         }
-
+         
         protected override void ChangeFrame()
         {
         }
