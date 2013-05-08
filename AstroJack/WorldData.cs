@@ -10,6 +10,7 @@ namespace AstroJack
     {
         public static float SeaLevel = 0;
         public static float GamePlane { get { return WorldData.SeaLevel - 36; } }
+        public static float RightBound = 0;
 
     }
 }

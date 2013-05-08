@@ -35,6 +35,7 @@ namespace AstroJack
         protected override void LoadContent()
         {
             WorldData.SeaLevel = GraphicsDevice.PresentationParameters.Bounds.Height - 55;
+            WorldData.RightBound = GraphicsDevice.PresentationParameters.Bounds.Right;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _stages[_currentStage].Load(Content);
         }

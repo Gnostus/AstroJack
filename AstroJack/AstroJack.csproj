@@ -16,7 +16,7 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>532e680c-9e20-4461-9ebb-7135f89661c7</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>astronaut.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -129,6 +129,8 @@
     <Compile Include="Sprites\Astronaut.cs" />
     <Compile Include="Sprites\BackGround.cs" />
     <Compile Include="Sprites\Brick.cs" />
+    <Compile Include="Sprites\Enemies\AirDragon.cs" />
+    <Compile Include="Sprites\Enemies\Enemy.cs" />
     <Compile Include="Sprites\Weapons\Bullet.cs" />
     <Compile Include="Sprites\IDrawable.cs" />
     <Compile Include="Sprites\Sprite.cs" />
@@ -141,7 +143,7 @@
     <Compile Include="WorldData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game.ico" />
+    <Content Include="astronaut.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
