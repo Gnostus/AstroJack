@@ -22,6 +22,7 @@ namespace AstroJack.Stages
             Add(dragon);
             Add(trre);
             AddRange(CreateBricks(BrickType.Grass, 20));
+            CollisionDetection.RegisterSprites(this.OfType<Sprite>());
         }
 
         public override void Poll()

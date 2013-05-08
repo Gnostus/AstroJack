@@ -69,8 +69,9 @@ namespace AstroJack.Sprites
         protected int LeapLength = 5; 
 
         private bool Jumping { get { return CurrentState == State.JumpBackwards || CurrentState == State.JumpForward || CurrentState == State.Jump; } }
-         
-        protected virtual void ChangeFrame() { } 
+
+        protected virtual void ChangeFrame() { }
+        public virtual void Hit(int damage) { } 
 
         public bool Collided(Sprite sprite)
         { 
@@ -125,5 +126,6 @@ namespace AstroJack.Sprites
         }
 
         private Texture2D sprite;
+         
     }
 }

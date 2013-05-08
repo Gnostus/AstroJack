@@ -14,6 +14,7 @@ namespace AstroJack.Sprites
     public class Bullet : Sprite, IBullet
     {
         private Sprite _gun;
+        private int _damage = 5;
         public Bullet(Sprite gun) : base("bullet")
         {
             _gun = gun;
@@ -35,8 +36,13 @@ namespace AstroJack.Sprites
 
         public override void Poll()
         {
-            if (IsAnimating)
-                Position.X += (FacingLeft ?  -15 : 15);
+            if (!IsAnimating) return;
+            Position.X += (FacingLeft ? -15 : 15);
+            var collidedSprite = CollisionDetection.Colliding(this);
+            if (collidedSprite != null)
+            {
+                collidedSprite.Hit(_damage);
+            }
         }
     }
 }

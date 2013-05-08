@@ -121,6 +121,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollisionDetection.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
