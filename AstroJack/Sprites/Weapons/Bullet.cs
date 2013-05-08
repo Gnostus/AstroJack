@@ -6,10 +6,17 @@ using System.Text;
 
 namespace AstroJack.Sprites
 {
-    public class Bullet : Sprite
+    public interface IBullet : IDrawable
     {
-        public Bullet() : base("bullet")
+        void Shoot();
+    }
+
+    public class Bullet : Sprite, IBullet
+    {
+        private Sprite _gun;
+        public Bullet(Sprite gun) : base("bullet")
         {
+            _gun = gun;
             IsAnimating = false;
             FrameSize = new Point(12, 13);
         }
@@ -17,18 +24,19 @@ namespace AstroJack.Sprites
         protected override void ChangeFrame()
         {
         }
-
-        private Vector2 _startingPoint;
-        public void Shoot(Vector2 position)
+         
+        public void Shoot()
         {
-            Position = position;
+            FacingLeft = _gun.FacingLeft;
+            Position.X = _gun.PosX - (FacingLeft ? -70 : -50);
+            Position.Y = _gun.PosY + 5;
             IsAnimating = true;
         }
 
         public override void Poll()
         {
             if (IsAnimating)
-                Position.X += 5;
+                Position.X += (FacingLeft ?  -15 : 15);
         }
     }
 }

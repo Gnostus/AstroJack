@@ -63,8 +63,11 @@ namespace AstroJack.Sprites
         public float FullY { get { return Position.Y + FrameSize.Y; } }
 
 
+        public int BufferedWidth { get { return Width + 100; } }
+
         private int LeapCount = 0;
         protected int LeapLength = 5; 
+
         private bool Jumping { get { return CurrentState == State.JumpBackwards || CurrentState == State.JumpForward || CurrentState == State.Jump; } }
          
         protected virtual void ChangeFrame() { } 
@@ -78,7 +81,7 @@ namespace AstroJack.Sprites
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-        {
+        {            
             if (IsAnimating)
             {
                 var effect = FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -86,8 +89,7 @@ namespace AstroJack.Sprites
                 spriteBatch.Draw(sprite, Position, new Rectangle(
                               FrameSize.X * CurrentFrame.X,
                               FrameSize.Y * CurrentFrame.Y,
-                              FrameSize.X,
-                              FrameSize.Y),
+                              FrameSize.X, FrameSize.Y),
                               Color.White, 0, Vector2.Zero, 1, effect, 0);
             }
 

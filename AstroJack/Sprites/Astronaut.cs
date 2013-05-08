@@ -20,13 +20,13 @@ namespace AstroJack.Sprites
             _weapon = new Rifle(this);
             SubSprites.Add(_weapon);
             SubSprites.Add(_talkBox);
-            _weapon.Load(5);
+            _weapon.ReLoad(5);
         }
                 
         public void Talk(string message)
         {
             _talkBox.Talk(message);
-        } 
+        }
 
         protected override void ChangeFrame()
         {
@@ -50,7 +50,13 @@ namespace AstroJack.Sprites
             if (IO.Talk)
                 Talk("Wuchu Want?");
             if (IO.Shoot)
-                _weapon.Shoot(Position);
+            {
+                try
+                {
+                    _weapon.Shoot();
+                }
+                catch (OutOfAmmoException _) { Talk("  Shit,\n  out of ammo..."); };
+            }
             if (IO.WalkRight)
             {
                 CurrentState = State.Walking;
@@ -77,13 +83,17 @@ namespace AstroJack.Sprites
                 CurrentState = State.JumpForward;
                 FaceLeft(false);
             }
+            if (IO.Reload)
+            {
+                _weapon.ReLoad(5);
+            }
             base.Poll();
         }
 
         private void FaceLeft(bool left)
         {
             FacingLeft = left;
-            SubSprites.OfType<Sprite>().ForEach(s => s.FacingLeft = left);
+            SubSprites.OfType<Sprite>().ForEach(s => s.FacingLeft = left); 
         }
     }
 }

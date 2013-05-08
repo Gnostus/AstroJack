@@ -8,7 +8,12 @@ namespace AstroJack.Sprites.Weapons
 {
     public interface IWeapon : IDrawable
     {
-        void Shoot(Vector2 position);
-        void Load(int bulletCount);
+        void Shoot();
+        void ReLoad(int bulletCount);
+    }
+
+    public class OutOfAmmoException : Exception
+    {
+
     }
 }

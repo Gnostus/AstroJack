@@ -16,8 +16,9 @@ namespace AstroJack
         public static bool Jump { get; private set; } 
         public static bool Idle { get; private set; }
         public static bool Shoot { get; private set; }
-        public static bool Talk { get; private set; }  
-         
+        public static bool Talk { get; private set; }
+        public static bool Reload { get; private set; }
+
         public static void Poll(PlayerIndex index = PlayerIndex.One)
         {
             WalkLeft =
@@ -33,6 +34,7 @@ namespace AstroJack
             Talk = keys.Any(k => k == Keys.P) || padState.Buttons.LeftShoulder == ButtonState.Pressed;
             Shoot = keys.Any(k => k == Keys.F) || padState.Buttons.A == ButtonState.Pressed;
             Jump = keys.Any(k => k == Keys.Up || k == Keys.Space) || padState.Buttons.B == ButtonState.Pressed;
+            Reload = keys.Any(k => k == Keys.R) || padState.Buttons.RightShoulder == ButtonState.Pressed;
 
             if (keys.Any(k => k == Keys.Left) || padState.Buttons.LeftShoulder == ButtonState.Pressed)
             {

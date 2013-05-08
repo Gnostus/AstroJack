@@ -34,19 +34,19 @@ namespace AstroJack.Sprites
             _messages.Add(message);
             _text.Update(new Vector2(_parent.PosX + 85, _parent.PosY + 175), _messages[_currentMessage]);
             Update();
-        } 
-
-
+        }
+         
         private void Update()
         { 
             _duration = _messages[_currentMessage++].Length * 5; 
         }
 
         public override void Poll()
-         {
+        {
             _duration--;
-            Position.X = _parent.FullX;
-             Position.Y = _parent.FullY - 210;
+            FacingLeft = _parent.FacingLeft;
+            Position.X = _parent.FullX - (FacingLeft ? _parent.BufferedWidth : 0);
+            Position.Y = _parent.FullY - 210; 
             _text.Update(Position);
             base.Poll();
         }

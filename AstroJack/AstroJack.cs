@@ -23,8 +23,7 @@ namespace AstroJack
         {
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content"; 
-           // this.graphics.IsFullScreen = true;
+            Content.RootDirectory = "Content";  
         }
          
         protected override void Initialize()
